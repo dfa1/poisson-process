@@ -58,18 +58,18 @@
                     $('#results').html('');
                     var trials = [];
                     
-                    for (i = 0; i < n; i++) {
+                    for (var i = 0; i < n; i++) {
                         var s = 0;
-                        var i = 0;
+                        var l = 0;
 
                         while (s <= t) {
                             var p = poisson(lambda);
                             //$(p + '<br/>').appendTo('#results');
                             s += p;
-                            i += 1;
+                            l += 1;
                         }
                         
-                        trials.push(i);
+                        trials.push(l);
                     }
 
                     $('<h2>&lambda;t = ' + (lambda * t) + '</h2>').appendTo('#results');
