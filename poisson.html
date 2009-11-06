@@ -77,15 +77,37 @@
                 });
             });
         </script>
+        <style type="text/css">
+            * {
+                font-family: georgia;
+                text-align: justify;
+            }
+
+            body {
+                margin-top: 3%;
+                margin-left: 4%;
+                margin-right: 4%;
+                padding: 0;
+                border: 0;			/* This removes the border around the viewport in old versions of IE */
+            }
+
+            input {
+                font: inherit;
+                margin: 15px;
+                padding: 3px;
+                display: block;
+                width: 60ex;
+            }
+        </style>
     </head>
     <body>
         <h1>Poisson process</h1>
         <p>
             with &lambda; &gt; 0, t &gt; 0, n &gt; 0
         </p>
-        <label>&nbsp;&lambda;&nbsp;</label><input id="lambda" type="text"/><br/>
-        <label>&nbsp;t&nbsp;</label><input id="t" type="text"/><br/>
-        <label>&nbsp;n&nbsp;</label><input id="n" type="text"/><br/>
+        <label>&nbsp;&lambda;&nbsp;</label><input id="lambda" type="text"/>
+        <label>&nbsp;t&nbsp;</label><input id="t" type="text"/>
+        <label>&nbsp;n&nbsp;</label><input id="n" type="text"/>
         <button id="calc">calc</button>
         <div id="results">
         </div>
