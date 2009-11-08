@@ -60,6 +60,7 @@
                     $('#results').html('');
                     var trials = [];
                     var graphs = [];
+                    var durations = [];
 
                     for (var i = 0; i < n; i++) {
                         var s = 0;
@@ -68,6 +69,7 @@
 
                         do {
                             var p = poisson(lambda);
+                            //$(p + '<br/>').appendTo('#results');
 
                             if (s + p > t) {
                                 break;
@@ -75,8 +77,7 @@
                             
                             s += p;
                             graph.push([s - p, l], [s, l], null);
-                            //$(p + '<br/>').appendTo('#results');
-                            
+                            durations.push(p);
                             l += 1;
                         } while (1);
 
@@ -85,7 +86,9 @@
                     }
 
                     $('<h2>&lambda;t = ' + (lambda * t) + '</h2>').appendTo('#results');
-                    $('<h2>mean = ' + mean(trials) + '</h2>').appendTo('#results');
+                    $('<h2>mean(trials) = ' + mean(trials) + '</h2>').appendTo('#results');
+                    $('<h2>1/&lambda;= ' + (1 / lambda) + '</h2>').appendTo('#results');
+                    $('<h2>mean(durations)= ' + mean(durations) + '</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
             });
@@ -127,6 +130,6 @@
         <div id="graph" style="width:600px;height:300px;">
         </div>
 
-        <p>by Davide Angelocola 7/11/2009</p>
+        <p>by Davide Angelocola 8 Nov 2009</p>
     </body>
 </html>
