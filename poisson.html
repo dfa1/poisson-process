@@ -4,6 +4,8 @@
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js"></script>
+        <!--[if IE]><script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/excanvas.min.js"></script><![endif]-->
+        <script language="javascript" type="text/javascript" src="http://people.iola.dk/olau/flot/jquery.flot.js"></script>
         <script type="text/javascript" src="functional.js"></script>
         <script type="text/javascript">
             $(function() {
@@ -57,23 +59,36 @@
 
                     $('#results').html('');
                     var trials = [];
-                    
+                    var graphs = [];
+
                     for (var i = 0; i < n; i++) {
                         var s = 0;
                         var l = 0;
+                        var graph = [];
 
-                        while (s <= t) {
+                        do {
                             var p = poisson(lambda);
-                            //$(p + '<br/>').appendTo('#results');
+
+                            if (s + p > t) {
+                                break;
+                            } 
+                            
                             s += p;
+                            graph.push([s - p, l], [s, l], null);
+                            //$(p + '<br/>').appendTo('#results');
+                            
                             l += 1;
-                        }
-                        
+
+                            
+                        } while (1);
+
+                        graphs.push(graph);
                         trials.push(l);
                     }
 
                     $('<h2>&lambda;t = ' + (lambda * t) + '</h2>').appendTo('#results');
                     $('<h2>mean = ' + mean(trials) + '</h2>').appendTo('#results');
+                    $.plot($("#graph"), graphs);
                 });
             });
         </script>
@@ -110,6 +125,8 @@
         <label>&nbsp;n&nbsp;</label><input id="n" type="text"/>
         <button id="calc">Simulate!</button>
         <div id="results">
+        </div>
+        <div id="graph" style="width:600px;height:300px;">
         </div>
 
         <p>by Davide Angelocola 7/11/2009</p>
