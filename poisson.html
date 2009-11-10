@@ -86,10 +86,8 @@
                         trials.push(l);
                     }
 
-                    $('<h2>&lambda;t = ' + (lambda * t) + '</h2>').appendTo('#results');
-                    $('<h2>mean(trials) = ' + mean(trials) + '</h2>').appendTo('#results');
-                    $('<h2>1/&lambda;= ' + (1 / lambda) + '</h2>').appendTo('#results');
-                    $('<h2>mean(durations)= ' + mean(durations) + '</h2>').appendTo('#results');
+                    $('<h2>Expecting &lambda;t = ' + (lambda * t) + ', got ' + mean(trials) + '</h2>').appendTo('#results');
+                    $('<h2>Expecting 1/&lambda;= ' + (1 / lambda) + ', got ' + mean(durations) + '</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
             });
@@ -136,6 +134,6 @@
         <div id="graph" style="width:600px;height:300px;">
         </div>
 
-        <p>by Davide Angelocola 8 Nov 2009</p>
+        <p>by Davide Angelocola 10 Nov 2009</p>
     </body>
 </html>
