@@ -26,14 +26,15 @@
                 }
 
                 $('#calc').click(function() {
-                    var lambda = $('#lambda').val();
-                    var t = $('#t').val();
-                    var n = $('#n').val();
+                    var lambda = $('#lambda').val().replace(",", ".");
+                    var t = $('#t').val().replace(",", ".");
+                    var n = $('#n').val().replace(",", ".");
                     var error = false;
                     var aNumber = /^\d+(\.\d+)?$/;
 
                     if (!lambda || !lambda.match(aNumber) || lambda < 0) {
                         $('#lambda').css('background', 'red');
+                        $('#e1').html('aoh');
                         error = true;
                     } else {
                         $('#lambda').css('background', 'white');
@@ -121,12 +122,17 @@
         <p>
             with &lambda; &gt; 0, t &gt; 0, n &gt; 0
         </p>
+        <p>
+        </p>
+
         <label>&nbsp;&lambda;&nbsp;</label><input id="lambda" type="text"/>
         <label>&nbsp;t&nbsp;</label><input id="t" type="text"/>
         <label>&nbsp;n&nbsp;</label><input id="n" type="text"/>
         <button id="calc">Simulate!</button>
         <div id="results">
         </div>
+
+
         <div id="graph" style="width:600px;height:300px;">
         </div>
 
