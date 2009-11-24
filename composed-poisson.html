@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Composed Poisson Process Simulator</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" TYPE="text/css" href="style.css"/>
+        <script type="text/javascript" src="jquery.js"></script>
+        <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+        <script type="text/javascript" src="jquery.flot.js"></script>
+        <script type="text/javascript" src="functional.js"></script>
+        <script type="text/javascript" src="poisson.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#calc').click(function() {
+                    var lambda = $('#lambda').val().replace(",", ".");
+                    var t = $('#t').val().replace(",", ".");
+                    var n = $('#n').val().replace(",", ".");
+                    var error = false;
+                    var aNumber = /^\d+(\.\d+)?$/;
+
+                    if (!lambda || !lambda.match(aNumber) || lambda < 0) {
+                        $('#lambda').css('background', 'red');
+                        error = true;
+                    } else {
+                        $('#lambda').css('background', 'white');
+                    }
+
+                    if (!n || !n.match(aNumber) || n < 0) {
+                        $('#n').css('background', 'red');
+                        error = true;
+                    } else {
+                        $('#n').css('background', 'white');
+                    }
+
+                    if (!t || !t.match(aNumber) || t < 0) {
+                        $('#t').css('background', 'red');
+                        error = true;
+                    } else {
+                        $('#t').css('background', 'white');
+                    }
+
+                    // comma-separated values
+                    var d = $('#d').val().split(',');
+
+                    for (var i = 0; i < d.length; i++) {
+                        var z = d[i];
+
+                        if (!z || !z.match(aNumber) ) {
+                            $('#d').css('background', 'red');
+                            error = true;
+                        } else {
+                            $('#d').css('background', 'white');
+                            d[i] = parseFloat(z);
+                        }
+                    }
+
+                    if (error) {
+                        return;
+                    }
+
+                    $('#results').html('');
+                    var sum = 0;
+                    var graphs = [];
+                    var durations = [];
+
+                    for (var i = 0; i < n; i++) {
+                        var s = 0;
+                        var l = 0;
+                        var graph = [];
+
+                        do {
+                            var p = poisson(lambda);
+                            //$(p + '<br/>').appendTo('#results');
+
+                            if (s + p > t) {
+                                break;
+                            } 
+                            
+                            s += p;
+                            graph.push([s - p, l], [s, l], null);
+                            durations.push(p);
+                            l += 1;
+                        } while (1);
+
+                        graphs.push(graph);
+                        var x = d[random(d.length)];
+                        sum += x;
+                    }
+
+                    lambda = mean(d);
+
+                    $('<h2>Expecting &lambda;tE[D] = ' + (lambda * t) + ', got ' + (sum) + '</h2>').appendTo('#results');
+                    $('<h2>E[D] = ' + mean(d) + '</h2>').appendTo('#results');
+                    $.plot($("#graph"), graphs);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Composed Poisson Process Simulator</h1>
+        <p>
+            Please specify &lambda; &gt; 0, t &gt; 0, n &gt; 0, and D values.
+        </p>
+        <p>
+            <b>NB</b>: 3,14 is interpreted as 3.14
+        </p>
+
+        <label>&lambda;</label><input id="lambda" type="text"/>
+        <label>t</label><input id="t" type="text"/>
+        <label>n</label><input id="n" type="text"/>
+        <label>D, comma separated</label><input id="d" type="text"/>
+        <button id="calc">Simulate!</button>
+
+        <div id="results">
+        </div>
+
+        <div id="graph" style="width:600px;height:300px;">
+        </div>
+
+        <p>by Davide Angelocola 24 Nov 2009</p>
+    </body>
+</html>
