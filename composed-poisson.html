@@ -14,7 +14,6 @@
                 $('#calc').click(function() {
                     var lambda = $('#lambda').val().replace(",", ".");
                     var t = $('#t').val().replace(",", ".");
-                    var n = $('#n').val().replace(",", ".");
                     var error = false;
                     var aNumber = /^\d+(\.\d+)?$/;
 
@@ -23,13 +22,6 @@
                         error = true;
                     } else {
                         $('#lambda').css('background', 'white');
-                    }
-
-                    if (!n || !n.match(aNumber) || n < 0) {
-                        $('#n').css('background', 'red');
-                        error = true;
-                    } else {
-                        $('#n').css('background', 'white');
                     }
 
                     if (!t || !t.match(aNumber) || t < 0) {
@@ -59,38 +51,31 @@
                     }
 
                     $('#results').html('');
-                    var sum = 0;
+                    var n = 0; // N(t)
+                    var x = 0; // X(t)
+                    var delta = 0;
+                    // graphs
                     var graphs = [];
-                    var durations = [];
+                    var graph = [];
 
-                    for (var i = 0; i < n; i++) {
-                        var s = 0;
-                        var l = 0;
-                        var graph = [];
+                    do {
+                        var p = poisson(lambda);
 
-                        do {
-                            var p = poisson(lambda);
-                            //$(p + '<br/>').appendTo('#results');
-
-                            if (s + p > t) {
-                                break;
-                            } 
+                        if (delta + p > t) {
+                            break;
+                        }
                             
-                            s += p;
-                            graph.push([s - p, l], [s, l], null);
-                            durations.push(p);
-                            l += 1;
-                        } while (1);
+                        delta += p;
+                        n += 1;
+                        x += d[random(d.length)]; // Di 
+                        graph.push([delta - p, n], [delta, n], null);
+                    } while (1);
 
-                        graphs.push(graph);
-                        var x = d[random(d.length)];
-                        sum += x;
-                    }
+                    graphs.push(graph);
 
-                    lambda = mean(d);
-
-                    $('<h2>Expecting &lambda;tE[D] = ' + (lambda * t) + ', got ' + (sum) + '</h2>').appendTo('#results');
-                    $('<h2>E[D] = ' + mean(d) + '</h2>').appendTo('#results');
+                    //$('<h2>Expecting &lambda;tE[D] = ' + (lambda * t) + ', got ' + (sum) + '</h2>').appendTo('#results');
+                    $('<h2>E[X(t)] = ' + x + '</h2>').appendTo('#results');
+                    $('<h2>expected E[X(t)] = ' + lambda * t * mean(d) + '</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
             });
@@ -99,7 +84,7 @@
     <body>
         <h1>Composed Poisson Process Simulator</h1>
         <p>
-            Please specify &lambda; &gt; 0, t &gt; 0, n &gt; 0, and D values.
+            Please specify &lambda; &gt; 0, t &gt; 0, and D values.
         </p>
         <p>
             <b>NB</b>: 3,14 is interpreted as 3.14
@@ -107,7 +92,6 @@
 
         <label>&lambda;</label><input id="lambda" type="text"/>
         <label>t</label><input id="t" type="text"/>
-        <label>n</label><input id="n" type="text"/>
         <label>D, comma separated</label><input id="d" type="text"/>
         <button id="calc">Simulate!</button>
 
@@ -117,6 +101,6 @@
         <div id="graph" style="width:600px;height:300px;">
         </div>
 
-        <p>by Davide Angelocola 24 Nov 2009</p>
+        <p>by Davide Angelocola 30 Nov 2009</p>
     </body>
 </html>
