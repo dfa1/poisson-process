@@ -98,16 +98,16 @@
     <body>
         <h1>Composed Poisson Process Simulator</h1>
         <p>
-            Please specify &lambda; &gt; 0, t &gt; 0, and D values.
+            Please specify &lambda; &gt; 0, t &gt; 0, n &gt; 0, and D values.
         </p>
         <p>
             <b>NB</b>: 3,14 is interpreted as 3.14
         </p>
 
-        <label>&lambda;</label><input id="lambda" type="text"/>
-        <label>n</label><input id="n" type="text" value="1"/>
-        <label>t</label><input id="t" type="text"/>
-        <label>D, comma separated</label><input id="d" type="text"/>
+        <label>&lambda;</label><input id="lambda" type="text" value="1"/>
+        <label>n</label><input id="n" type="text" value="3"/>
+        <label>t</label><input id="t" type="text" value="5"/>
+        <label>D, comma separated</label><input id="d" type="text" value="1,2"/>
         <button id="calc">Simulate!</button>
 
         <div id="results">
