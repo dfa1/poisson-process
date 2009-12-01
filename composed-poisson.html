@@ -11,6 +11,10 @@
         <script type="text/javascript" src="poisson.js"></script>
         <script type="text/javascript">
             $(function() {
+                $('input').keypress(function(e){
+                    if(e.which==13) $("#calc").click();
+                });
+
                 $('#calc').click(function() {
                     var lambda = $('#lambda').val().replace(",", ".");
                     var t = $('#t').val().replace(",", ".");
