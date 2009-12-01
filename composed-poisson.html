@@ -14,6 +14,7 @@
                 $('#calc').click(function() {
                     var lambda = $('#lambda').val().replace(",", ".");
                     var t = $('#t').val().replace(",", ".");
+                    var n = $('#n').val().replace(",", ".");
                     var error = false;
                     var aNumber = /^\d+(\.\d+)?$/;
 
@@ -29,6 +30,13 @@
                         error = true;
                     } else {
                         $('#t').css('background', 'white');
+                    }
+
+                    if (!n || !n.match(aNumber) || n < 0) {
+                        $('#n').css('background', 'red');
+                        error = true;
+                    } else {
+                        $('#n').css('background', 'white');
                     }
 
                     // comma-separated values
@@ -51,30 +59,36 @@
                     }
 
                     $('#results').html('');
-                    var n = 0; // N(t)
-                    var x = 0; // X(t)
-                    var delta = 0;
+                    
+                    var xs = []; // E[X(t)]
+                    
                     // graphs
                     var graphs = [];
-                    var graph = [];
+                    each(range(n), function() {
+                        var graph = [];
+                        var i = 0; // N(t)
+                        var x = 0; // X(t)
+                        var delta = 0;
 
-                    do {
-                        var p = poisson(lambda);
+                        do {
+                            var p = poisson(lambda);
 
-                        if (delta + p > t) {
-                            break;
-                        }
+                            if (delta + p > t) {
+                                break;
+                            }
                             
-                        delta += p;
-                        n += 1;
-                        x += d[random(d.length)]; // Di 
-                        graph.push([delta - p, n], [delta, n], null);
-                    } while (1);
+                            delta += p;
+                            i += 1;
+                            var Di = d[random(d.length)];
+                            x += Di; // D_i
+                            graph.push([delta - p, i], [delta, i], null);
+                        } while (1);
 
-                    graphs.push(graph);
+                        xs.push(x);
+                        graphs.push(graph);
+                    });
 
-                    //$('<h2>Expecting &lambda;tE[D] = ' + (lambda * t) + ', got ' + (sum) + '</h2>').appendTo('#results');
-                    $('<h2>E[X(t)] = ' + x + '</h2>').appendTo('#results');
+                    $('<h2>E[X(t)] = ' + mean(xs) + '</h2>').appendTo('#results');
                     $('<h2>expected E[X(t)] = ' + lambda * t * mean(d) + '</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
@@ -91,6 +105,7 @@
         </p>
 
         <label>&lambda;</label><input id="lambda" type="text"/>
+        <label>n</label><input id="n" type="text" value="1"/>
         <label>t</label><input id="t" type="text"/>
         <label>D, comma separated</label><input id="d" type="text"/>
         <button id="calc">Simulate!</button>
