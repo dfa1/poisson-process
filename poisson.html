@@ -54,28 +54,28 @@
                     var graphs = [];
                     var durations = [];
 
-                    for (var i = 0; i < n; i++) {
+                    each(range(n), function (i) {
                         var s = 0;
                         var l = 0;
                         var graph = [];
 
-                        do {
+                        loopUntil(function() {
                             var p = poisson(lambda);
-                            //$(p + '<br/>').appendTo('#results');
 
                             if (s + p > t) {
-                                break;
-                            } 
+                                return false;
+                            }
                             
                             s += p;
                             graph.push([s - p, l], [s, l], null);
                             durations.push(p);
                             l += 1;
-                        } while (1);
+                            return true;
+                        });
 
                         graphs.push(graph);
                         trials.push(l);
-                    }
+                    });
 
                     $('<h2>Expecting &lambda;t = ' + (lambda * t) + ', got ' + mean(trials) + '</h2>').appendTo('#results');
                     $('<h2>Expecting 1/&lambda;= ' + (1 / lambda) + ', got ' + mean(durations) + '</h2>').appendTo('#results');
