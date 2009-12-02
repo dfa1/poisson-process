@@ -46,28 +46,28 @@
                     // comma-separated values
                     var d = $('#d').val().split(',');
 
-                    for (var i = 0; i < d.length; i++) {
-                        var z = d[i];
-
+                    // check for errors
+                    each(d, function(z) {
                         if (!z || !z.match(aNumber) ) {
                             $('#d').css('background', 'red');
                             error = true;
                         } else {
                             $('#d').css('background', 'white');
-                            d[i] = parseFloat(z);
                         }
-                    }
+                    });
 
                     if (error) {
                         return;
                     }
 
+                    // array[String] -> array[Number]
+                    d = map(d, parseFloat);
+                    
                     $('#results').html('');
                     
-                    var xs = []; // E[X(t)]
-                    
-                    // graphs
+                    var xs = []; // E[X(t)] 
                     var graphs = [];
+                    
                     each(range(n), function() {
                         var graph = [];
                         var i = 0; // N(t)
