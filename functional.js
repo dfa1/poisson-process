@@ -1,3 +1,8 @@
+// Functional Javascript
+// (C) 2009, Davide Angelocola <davide.angelocola@gmail.com>
+//
+// Released under Apache 2
+
 function each(array, f) {
     for (var i = 0; i < array.length; i++) {
         f(array[i]);
@@ -57,6 +62,14 @@ function some(array, f) {
     });
 
     return result;
+}
+
+function loopUntil(f) {
+    do {
+        if (!f()) {
+            break;
+        }
+    } while (true);
 }
 
 function compose(func1, func2) {
