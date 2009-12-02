@@ -53,16 +53,18 @@
                     var trials = [];
                     var graphs = [];
                     var durations = [];
+                    var memory = [];
 
-                    each(range(n), function (i) {
-                        var s = 0;
-                        var l = 0;
+                    each(range(n), function () {
+                        var s = 0; // current time
+                        var l = 0; // number of jumps
                         var graph = [];
 
                         loopUntil(function() {
                             var p = poisson(lambda);
 
                             if (s + p > t) {
+                                memory.push(s + p - t);
                                 return false;
                             }
                             
@@ -79,6 +81,7 @@
 
                     $('<h2>Expecting &lambda;t = ' + (lambda * t) + ', got ' + mean(trials) + '</h2>').appendTo('#results');
                     $('<h2>Expecting 1/&lambda;= ' + (1 / lambda) + ', got ' + mean(durations) + '</h2>').appendTo('#results');
+                    $('<h2>Expecting 1/&lambda;= ' + (1 / lambda) + ', got ' + mean(memory) + ' (Memorylessness)</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
             });
