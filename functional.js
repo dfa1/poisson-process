@@ -1,7 +1,7 @@
 // Functional Javascript
 // (C) 2009, Davide Angelocola <davide.angelocola@gmail.com>
 //
-// Released under Apache 2
+// MIT license
 
 function each(array, f) {
     for (var i = 0; i < array.length; i++) {
@@ -140,43 +140,42 @@ function random(upTo) {
     return Math.floor(Math.random() * upTo);
 }
 
-    // http://stackoverflow.com/questions/1266402/implementing-mathematical-sets-in-javascript
-    Array.prototype.contains = function(e) {
-        return this.lastIndexOf(e, this.length) != -1;
-    }
+// http://stackoverflow.com/questions/1266402/implementing-mathematical-sets-in-javascript
+//    Array.prototype.contains = function(e) {
+//        return this.lastIndexOf(e, this.length) != -1;
+//    }
 
-
-    Array.prototype.notContains = function(e) {
-        return this.lastIndexOf(e, this.length) == -1;
-    }
-
-function union(a1, a2) {
-    var res = [];
-
-    each(a1, function(e) {
-        res.push(e);
-    });
-
-    each(a2, function(e) {
-        if (res.notContains(e)) {
-            res.push(e);
-        }
-    });
-
-    return res;
-}
-
-function intersection(a1, a2) {
-    var res = [];
-
-    each(a1, function(e) {
-        if (a2.contains(e)) {
-            res.push(e);
-        }
-    });
-
-    return res;
-}
+//    Array.prototype.notContains = function(e) {
+//        return this.lastIndexOf(e, this.length) == -1;
+//    }
+//
+//function union(a1, a2) {
+//    var res = [];
+//
+//    each(a1, function(e) {
+//        res.push(e);
+//    });
+//
+//    each(a2, function(e) {
+//        if (res.notContains(e)) {
+//            res.push(e);
+//        }
+//    });
+//
+//    return res;
+//}
+//
+//function intersection(a1, a2) {
+//    var res = [];
+//
+//    each(a1, function(e) {
+//        if (a2.contains(e)) {
+//            res.push(e);
+//        }
+//    });
+//
+//    return res;
+//}
 
 // mapping javascript operators to functions
 var operators = {
