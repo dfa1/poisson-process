@@ -5,7 +5,7 @@ function n(array) {
 }
 
 function sum(array) {
-    return reduce(array, operators.add, 0);
+    return reduce(array, expr("a+b"), 0);
 }
 
 function mean(array) {

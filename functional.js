@@ -109,6 +109,14 @@ function range() {
     return result;
 }
 
+function random(upTo) {
+    return Math.floor(Math.random() * upTo);
+}
+
+// function factory
+//
+// expr("a + b")     is function (a, b) { return a + b; }
+// expr("a * b + c") is function (a, b) { return a * b + c; }
 function expr(s) {
     return function() {
         var a;
@@ -124,7 +132,7 @@ function expr(s) {
                 a = arguments[0];
                 b = arguments[1];
                 break;
-                
+
             case 3:
                 a = arguments[0];
                 b = arguments[1];
@@ -134,10 +142,6 @@ function expr(s) {
 
         return eval(s);
     }
-}
-
-function random(upTo) {
-    return Math.floor(Math.random() * upTo);
 }
 
 // http://stackoverflow.com/questions/1266402/implementing-mathematical-sets-in-javascript
@@ -176,34 +180,3 @@ function random(upTo) {
 //
 //    return res;
 //}
-
-// mapping javascript operators to functions
-var operators = {
-    add : function(a, b) {
-        return a + b;
-    },
-
-    sub : function(a , b) {
-        return a - b;
-    },
-
-    mul : function(a , b) {
-        return a * b;
-    },
-
-    div: function(a , b) {
-        return a / b;
-    },
-
-    mod: function(a , b) {
-        return a % b;
-    },
-
-    lt : function (a, b) {
-        return a < b;
-    },
-
-    square: function(a) {
-        return a * a;
-    }
-}
