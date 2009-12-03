@@ -17,3 +17,6 @@ function poisson(lambda) {
     return -Math.log(Math.random()) / lambda;
 }
 
+function log(message) {
+    $('<span>'+message+'</span><br/>').appendTo('#log');
+}

@@ -55,10 +55,11 @@
                     var durations = [];
                     var memory = [];
 
-                    each(range(n), function () {
+                    each(range(n), function (i) {
                         var s = 0; // current time
                         var l = 0; // number of jumps
                         var graph = [];
+                        log('process #' + i);
 
                         loopUntil(function() {
                             var p = poisson(lambda);
@@ -67,14 +68,16 @@
                                 memory.push(s + p - t);
                                 return false;
                             }
-                            
+
                             s += p;
-                            graph.push([s - p, l], [s, l], null);
-                            durations.push(p);
                             l += 1;
+                            graph.push([s - p, l], [s, l], null);
+                            durations.push(p);                            
+                            log(l + '. ' + p);
                             return true;
                         });
 
+                        log('');
                         graphs.push(graph);
                         trials.push(l);
                     });
@@ -105,6 +108,10 @@
         </div>
 
         <div id="graph" style="width:600px;height:300px;">
+        </div>
+
+        <br/>
+        <div id="log">
         </div>
 
         <p>by Davide Angelocola 10 Nov 2009</p>

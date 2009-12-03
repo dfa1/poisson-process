@@ -70,11 +70,13 @@
                     var xs = []; // E[X(t)] 
                     var graphs = [];
                     
-                    each(range(n), function() {
+                    each(range(n), function(i) {
                         var graph = [];
-                        var i = 0; // N(t)
-                        var x = 0; // X(t)
+                        var nt = 0; // N(t)
+                        var xt = 0; // X(t)
                         var delta = 0;
+
+                        log('process #' + i);
 
                         loopUntil(function() {
                             var p = poisson(lambda);
@@ -82,17 +84,22 @@
                             if (delta + p > t) {
                                 return false;
                             }
-                            
+
+                            var r = random(d.length);
+                            var Di = d[r];
+                            xt += Di; // D_i
+                            nt += 1;
                             delta += p;
-                            i += 1;
-                            var Di = d[random(d.length)];
-                            x += Di; // D_i
-                            graph.push([delta - p, i], [delta, i], null);
+
+                            log(nt + '. &Delta;t = ' + p + '; D<sub>'+(r+1) +'</sub> = ' + Di);
+                            graph.push([delta - p, nt], [delta, nt], null);
                             return true;
                         });
 
-                        xs.push(x);
+                        xs.push(xt);
                         graphs.push(graph);
+
+                        log('');
                     });
 
                     $('<h2>E[X(t)] = ' + mean(xs) + '</h2>').appendTo('#results');
@@ -121,6 +128,10 @@
         </div>
 
         <div id="graph" style="width:600px;height:300px;">
+        </div>
+
+        <br/>
+        <div id="log">
         </div>
 
         <p>by Davide Angelocola 30 Nov 2009</p>
