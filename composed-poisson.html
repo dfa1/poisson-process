@@ -65,6 +65,7 @@
                     // array[String] -> array[Number]
                     d = map(d, parseFloat);
                     
+                    $('#log').html('');
                     $('#results').html('');
                     
                     var xs = []; // E[X(t)] 
@@ -76,22 +77,22 @@
                         var xt = 0; // X(t)
                         var delta = 0;
 
-                        log('process #' + i);
+                        log('<h3>process #' + i + '</h3>');
 
                         loopUntil(function() {
                             var p = poisson(lambda);
 
                             if (delta + p > t) {
-                                return false;
+                                return false; // halt
                             }
 
                             var r = random(d.length);
                             var Di = d[r];
                             xt += Di; // D_i
-                            nt += 1;
                             delta += p;
+                            nt += 1;
 
-                            log(nt + '. &Delta;t = ' + p + '; D<sub>'+(r+1) +'</sub> = ' + Di);
+                            log((nt) + '. &Delta;t = ' + p + '; D<sub>'+(r+1) +'</sub> = ' + Di);
                             graph.push([delta - p, nt], [delta, nt], null);
                             return true;
                         });

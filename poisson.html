@@ -49,7 +49,9 @@
                         return;
                     }
 
+                    $('#log').html('');
                     $('#results').html('');
+
                     var trials = [];
                     var graphs = [];
                     var durations = [];
@@ -59,7 +61,7 @@
                         var s = 0; // current time
                         var l = 0; // number of jumps
                         var graph = [];
-                        log('process #' + i);
+                        log('<h3>process #' + i + '<h3>');
 
                         loopUntil(function() {
                             var p = poisson(lambda);
