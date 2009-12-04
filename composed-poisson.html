@@ -77,30 +77,30 @@
                         var xt = 0; // X(t)
                         var delta = 0;
 
-                        log('<h3>process #' + i + '</h3>');
+                        logger('<h3>process #' + i + '</h3>');
 
                         loopUntil(function() {
-                            var p = poisson(lambda);
+                            var e = esp(lambda);
 
-                            if (delta + p > t) {
+                            if (delta + e > t) {
                                 return false; // halt
                             }
 
                             var r = random(d.length);
                             var Di = d[r];
                             xt += Di; // D_i
-                            delta += p;
+                            delta += e;
                             nt += 1;
 
-                            log((nt) + '. &Delta;t = ' + p + '; D<sub>'+(r+1) +'</sub> = ' + Di);
-                            graph.push([delta - p, nt], [delta, nt], null);
+                            logger((nt) + '. &Delta;t = ' + e + '; D<sub>'+(r+1) +'</sub> = ' + Di);
+                            graph.push([delta - e, nt], [delta, nt], null);
                             return true;
                         });
 
                         xs.push(xt);
                         graphs.push(graph);
 
-                        log('');
+                        logger('');
                     });
 
                     $('<h2>E[X(t)] = ' + mean(xs) + '</h2>').appendTo('#results');

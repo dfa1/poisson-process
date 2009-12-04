@@ -1,6 +1,6 @@
-// utilities
-// depends on functional.js
-function n(array) {
+// poisson process helpers
+// (depends on functional.js and jquery.js)
+function length(array) {
     return array.length;
 }
 
@@ -9,14 +9,15 @@ function sum(array) {
 }
 
 function mean(array) {
-    return sum(array) / n(array);
+    return sum(array) / length(array);
 }
 
-// numerical possion: a very smart algorithm
-function poisson(lambda) {
+// http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates
+function esp(lambda) {
+    // -log(U)/lambda
     return -Math.log(Math.random()) / lambda;
 }
 
-function log(message) {
+function logger(message) {
     $('<span>'+message+'</span><br/>').appendTo('#log');
 }

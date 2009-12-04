@@ -61,25 +61,25 @@
                         var s = 0; // current time
                         var l = 0; // number of jumps
                         var graph = [];
-                        log('<h3>process #' + i + '<h3>');
+                        logger('<h3>process #' + i + '<h3>');
 
                         loopUntil(function() {
-                            var p = poisson(lambda);
+                            var e = esp(lambda);
 
-                            if (s + p > t) {
-                                memory.push(s + p - t);
+                            if (s + e > t) {
+                                memory.push(s + e - t);
                                 return false;
                             }
 
-                            s += p;
+                            s += e;
                             l += 1;
-                            graph.push([s - p, l], [s, l], null);
-                            durations.push(p);                            
-                            log(l + '. ' + p);
+                            graph.push([s - e, l], [s, l], null);
+                            durations.push(e);
+                            logger(l + '. ' + e);
                             return true;
                         });
 
-                        log('');
+                        logger('');
                         graphs.push(graph);
                         trials.push(l);
                     });
