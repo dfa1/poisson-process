@@ -1,5 +1,15 @@
 // poisson process helpers
 // (depends on functional.js and jquery.js)
+
+// http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates
+function esp(lambda) {
+    // -log(U)/lambda
+    return -Math.log(Math.random()) / lambda;
+}
+
+//////////
+// utils
+
 function length(array) {
     return array.length;
 }
@@ -12,12 +22,11 @@ function mean(array) {
     return sum(array) / length(array);
 }
 
-// http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates
-function esp(lambda) {
-    // -log(U)/lambda
-    return -Math.log(Math.random()) / lambda;
+// return a random value in range [0, upTo)
+function random(upTo) {
+    return Math.floor(Math.random() * upTo);
 }
 
 function logger(message) {
-    $('<span>'+message+'</span><br/>').appendTo('#log');
+    $('<span>' + message + '</span><br/>').appendTo('#log');
 }

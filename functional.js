@@ -27,7 +27,6 @@ function map(array, f) {
     return result;
 }
 
-
 function filter(array, f) {
     var result = [];
 
@@ -109,11 +108,7 @@ function range() {
     return result;
 }
 
-function random(upTo) {
-    return Math.floor(Math.random() * upTo);
-}
-
-// function factory
+// unary/binary/ternary function factory
 //
 // expr("a + b")     is function (a, b) { return a + b; }
 // expr("a * b + c") is function (a, b) { return a * b + c; }
@@ -143,40 +138,3 @@ function expr(s) {
         return eval(s);
     }
 }
-
-// http://stackoverflow.com/questions/1266402/implementing-mathematical-sets-in-javascript
-//    Array.prototype.contains = function(e) {
-//        return this.lastIndexOf(e, this.length) != -1;
-//    }
-
-//    Array.prototype.notContains = function(e) {
-//        return this.lastIndexOf(e, this.length) == -1;
-//    }
-//
-//function union(a1, a2) {
-//    var res = [];
-//
-//    each(a1, function(e) {
-//        res.push(e);
-//    });
-//
-//    each(a2, function(e) {
-//        if (res.notContains(e)) {
-//            res.push(e);
-//        }
-//    });
-//
-//    return res;
-//}
-//
-//function intersection(a1, a2) {
-//    var res = [];
-//
-//    each(a1, function(e) {
-//        if (a2.contains(e)) {
-//            res.push(e);
-//        }
-//    });
-//
-//    return res;
-//}
