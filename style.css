@@ -18,3 +18,18 @@ input {
     display: block;
     width: 60ex;
 }
+
+.result {
+    font-weight: bold;
+    color: red;
+}
+
+.expected {
+    font-weight: bold;
+    color: green;
+}
+
+.error {
+    font-weight: bold;
+    color: orange;
+}

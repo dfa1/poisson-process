@@ -30,3 +30,21 @@ function random(upTo) {
 function logger(message) {
     $('<span>' + message + '</span><br/>').appendTo('#log');
 }
+
+function span(message, cls) {
+    return '<span class="' + cls + '">' + message + '</span>';
+}
+
+function result(message) {
+    return span(message, 'result');
+}
+
+function expected(message) {
+    return span(message, 'expected');
+}
+
+function absError(message) {
+    return span(message, 'error');
+}
+
+

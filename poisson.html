@@ -84,9 +84,18 @@
                         trials.push(l);
                     });
 
-                    $('<h2>Expecting &lambda;t = ' + (lambda * t) + ', got ' + mean(trials) + '</h2>').appendTo('#results');
-                    $('<h2>Expecting 1/&lambda;= ' + (1 / lambda) + ', got ' + mean(durations) + '</h2>').appendTo('#results');
-                    $('<h2>Expecting 1/&lambda;= ' + (1 / lambda) + ', got ' + mean(memory) + ' (Memorylessness)</h2>').appendTo('#results');
+                    var expectedNumberOfTrials = lambda * t; 
+                    var numberOfTrials = mean(trials);       
+                    var errorTrials = Math.abs(expectedNumberOfTrials - numberOfTrials);
+                    var expectedMean = 1 / lambda;           
+                    var durationMean = mean(durations);
+                    var durationError = Math.abs(expectedMean - durationMean);
+                    var memoryMean = mean(memory);
+                    var memoryError = Math.abs(expectedMean - memoryMean);
+
+                    $('<h2>&lambda;t = ' + expected(expectedNumberOfTrials) + ' result: ' + result(numberOfTrials) + ' error: ' + absError(errorTrials) + '</h2>').appendTo('#results');
+                    $('<h2>1/&lambda;= ' + expected(expectedMean)           + ' result: ' + result(durationMean)   + ' error: ' + absError(durationError) + ' (durations)</h2>').appendTo('#results');
+                    $('<h2>1/&lambda;= ' + expected(expectedMean)           + ' result: ' + result(memoryMean)     + ' error: ' + absError(memoryError) + ' (memorylessness)</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
             });
@@ -101,9 +110,9 @@
             <b>NB</b>: 3,14 is interpreted as 3.14
         </p>
 
-        <label>&nbsp;&lambda;&nbsp;</label><input id="lambda" type="text" value="1"/>
-        <label>&nbsp;t&nbsp;</label><input id="t" type="text" value="5"/>
-        <label>&nbsp;n&nbsp;</label><input id="n" type="text" value="3"/>
+        <label>&lambda;</label><input id="lambda" type="text" value="1"/>
+        <label>t</label><input id="t" type="text" value="5"/>
+        <label>n</label><input id="n" type="text" value="3"/>
         <button id="calc">Simulate!</button>
 
         <div id="results">

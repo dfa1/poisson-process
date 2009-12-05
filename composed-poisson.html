@@ -103,8 +103,11 @@
                         logger('');
                     });
 
-                    $('<h2>E[X(t)] = ' + mean(xs) + '</h2>').appendTo('#results');
-                    $('<h2>expected E[X(t)] = ' + lambda * t * mean(d) + '</h2>').appendTo('#results');
+                    var expectedMean = lambda * t * mean(d);
+                    var resultMean = mean(xs);
+                    var errorMean = Math.abs(expectedMean - resultMean);
+
+                    $('<h2>E[X(t)] = ' + expected(expectedMean) + ' result: ' + result(resultMean) + ' error: ' + absError(errorMean) + '</h2>').appendTo('#results');
                     $.plot($("#graph"), graphs);
                 });
             });
