@@ -7,8 +7,11 @@
         <script type="text/javascript" src="jquery.js"></script>
         <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
         <script type="text/javascript" src="jquery.flot.js"></script>
-        <script type="text/javascript" src="functional.js"></script>
-        <script type="text/javascript" src="poisson.js"></script>
+        <script type="text/javascript" src="lambdascript.js"></script>
+        <script type="text/javascript">
+            LambdaScript.install();
+        </script>
+        <script type="text/javascript" src="common.js"></script>
         <script type="text/javascript">
             $(function() {
                 $('input').keypress(function(e) {
@@ -49,7 +52,7 @@
                     var d = $('#d').val().split(',');
 
                     // check for errors
-                    each(d, function(z) {
+                    forEach(d, function(z) {
                         if (!z || !z.match(aNumber) ) {
                             $('#d').css('background', 'red');
                             error = true;
@@ -63,7 +66,7 @@
                     }
 
                     // array[String] -> array[Number]
-                    d = map(d, parseFloat);
+                    d = map(parseFloat, d);
                     
                     $('#log').html('');
                     $('#results').html('');
@@ -71,7 +74,7 @@
                     var xs = []; // E[X(t)] 
                     var graphs = [];
                     
-                    each(range(n), function(i) {
+                    forEach(range(n), function(i) {
                         var graph = [];
                         var nt = 0; // N(t)
                         var xt = 0; // X(t)
@@ -99,8 +102,6 @@
 
                         xs.push(xt);
                         graphs.push(graph);
-
-                        logger('');
                     });
 
                     var expectedMean = lambda * t * mean(d);
@@ -138,6 +139,14 @@
         <div id="log">
         </div>
 
-        <p>by Davide Angelocola 30 Nov 2009</p>
+        <p>by <a href="http://www.humaorie.com">Davide Angelocola</a></p>
     </body>
 </html>
+
+<!--
+ChangeLog:
+
+ 6 Feb 2010: ported to lambdascript
+30 Nov 2009: first public release
+
+-->

@@ -1,5 +1,5 @@
 // poisson process helpers
-// (depends on functional.js and jquery.js)
+// (depends on lambdascript.js and jquery.js)
 
 // http://en.wikipedia.org/wiki/Exponential_distribution#Generating_exponential_variates
 function esp(lambda) {
@@ -7,15 +7,12 @@ function esp(lambda) {
     return -Math.log(Math.random()) / lambda;
 }
 
-//////////
-// utils
-
 function length(array) {
     return array.length;
 }
 
 function sum(array) {
-    return reduce(array, expr("a+b"), 0);
+    return reduce(lambda("a+b"), array, 0);
 }
 
 function mean(array) {
@@ -47,4 +44,11 @@ function absError(message) {
     return span(message, 'error');
 }
 
-
+// TODO: move to lambdascript?
+function loopUntil(f) {
+    do {
+        if (!f()) {
+            break;
+        }
+    } while (true);
+}

@@ -7,8 +7,11 @@
         <script type="text/javascript" src="jquery.js"></script>
         <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
         <script type="text/javascript" src="jquery.flot.js"></script>
-        <script type="text/javascript" src="functional.js"></script>
-        <script type="text/javascript" src="poisson.js"></script>
+        <script type="text/javascript" src="lambdascript.js"></script>
+        <script type="text/javascript">
+            LambdaScript.install();
+        </script>
+        <script type="text/javascript" src="common.js"></script>
         <script type="text/javascript">
             $(function() {
                 $('input').keypress(function(e) {
@@ -57,7 +60,7 @@
                     var durations = [];
                     var memory = [];
 
-                    each(range(n), function (i) {
+                    forEach(range(n), function (i) {
                         var s = 0; // current time
                         var l = 0; // number of jumps
                         var graph = [];
@@ -84,10 +87,10 @@
                         trials.push(l);
                     });
 
-                    var expectedNumberOfTrials = lambda * t; 
-                    var numberOfTrials = mean(trials);       
+                    var expectedNumberOfTrials = lambda * t;
+                    var numberOfTrials = mean(trials);
                     var errorTrials = Math.abs(expectedNumberOfTrials - numberOfTrials);
-                    var expectedMean = 1 / lambda;           
+                    var expectedMean = 1 / lambda;
                     var durationMean = mean(durations);
                     var durationError = Math.abs(expectedMean - durationMean);
                     var memoryMean = mean(memory);
@@ -125,6 +128,14 @@
         <div id="log">
         </div>
 
-        <p>by Davide Angelocola 10 Nov 2009</p>
+        <p>by <a href="http://www.humaorie.com">Davide Angelocola</a></p>
     </body>
 </html>
+
+<!--
+ChangeLog:
+
+ 6 Feb 2010: ported to lambdascript
+10 Nov 2009: first public release
+
+-->
